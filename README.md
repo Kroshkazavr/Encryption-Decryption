@@ -1,5 +1,5 @@
 # Encryption-Decryption
-Command-line project for making the ciphertext and encrypt the ciphertext. JetBrains Academy_Hiperskill.
+Command-line project for making the ciphertext and encrypt the ciphertext. JetBrains Academy_Hiperskill.  
 To start a program you should write for example "java Main -mode enc -key 5 -data "Welcome to hyperskill!" in command-line.
 
 ## The program parses arguments from command-line:
