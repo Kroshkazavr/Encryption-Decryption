@@ -52,9 +52,9 @@ class Converter {
     public void convert() {
 
         if (this.getMode().equalsIgnoreCase("enc")) {
-            this.setResultData(Encryptor.enc(this.getData(), this.getKey()));
+            this.setResultData(ConversionMethod.convert(this.getAlgorithm(), this.getData(), this.getKey()));
         } else if (this.getMode().equalsIgnoreCase("dec")) {
-            this.setResultData(Decryptor.dec(this.getData(), this.getKey()));
+            this.setResultData(ConversionMethod.convert(this.getAlgorithm(), this.getData(), this.getKey()));
         } else {
             System.out.println("Encryption/Decryption uncompleted - WRONG MODE.");
         }
