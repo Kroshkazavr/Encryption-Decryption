@@ -1,24 +1,21 @@
 package encryptdecrypt;
 
-public class Encryptor implements ConversionMethod {
+import static encryptdecrypt.Constants.ALPHABET_LOWER_CASE;
+import static encryptdecrypt.Constants.ALPHABET_UPPER_CASE;
 
-//    @Override
-//    public String convert(String algorithm, String data, int key) {
-//        String resultStr = "";
-//        if (algorithm.equalsIgnoreCase("shift")) {
-//            resultStr = encShift(data, key);
-//        } else if (algorithm.equalsIgnoreCase("unicode")) {
-//            resultStr = encShift(data, key);
-//        }
-//        return resultStr;
-//    }
+public class Encryption {
 
-    /**
-     * @param str text for encryption
-     * @param key key for encryption
-     * @return cipher data
-     */
-    public static String shiftMethod(String str, int key) {
+    public static String transform(String data, String algorithm, int key) {
+        String resultStr = "";
+        if (algorithm.equalsIgnoreCase("shift")) {
+            resultStr = shiftMethod(data, key);
+        } else if (algorithm.equalsIgnoreCase("unicode")) {
+            resultStr = unicodeMethod(data, key);
+        }
+        return resultStr;
+    }
+
+    public static String unicodeMethod(String str, int key) {
         StringBuilder cipherData = new StringBuilder();
         int encryptionIndex;
         for (int i = 0; i < str.length(); i++) {
@@ -28,16 +25,16 @@ public class Encryptor implements ConversionMethod {
         return cipherData.toString();
     }
 
-    public static String unicodeMethod(String str, int key) {
+    public static String shiftMethod(String str, int key) {
         StringBuilder resultString = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            if (str.substring(i, i + 1).matches("[:upper:]")) {
+            if (str.substring(i, i + 1).matches("[A-Z]")) {
                 int encryptionIndex = ALPHABET_UPPER_CASE.indexOf(str.substring(i, i + 1)) + key;
                 while (encryptionIndex >= ALPHABET_UPPER_CASE.length() - 1) {
                     encryptionIndex = encryptionIndex - 26;
                 }
                 resultString.append(ALPHABET_UPPER_CASE.charAt(encryptionIndex));
-            } else if (str.substring(i, i + 1).matches("[:lower:]")) {
+            } else if (str.substring(i, i + 1).matches("[a-z]")) {
                 int encryptionIndex = ALPHABET_LOWER_CASE.indexOf(str.substring(i, i + 1)) + key;
                 while (encryptionIndex >= ALPHABET_LOWER_CASE.length() - 1) {
                     encryptionIndex = encryptionIndex - 26;

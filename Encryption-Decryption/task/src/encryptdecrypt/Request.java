@@ -9,8 +9,9 @@ import java.util.Scanner;
 public class Request {
 
     private Converter converter = new Converter();
-    private String pathToFileIn = null;
-    private String pathToFileOut = null;
+    private String pathToFileIn = "";
+    private String pathToFileOut = "";
+
 
     public Request(String[] args) {
         for (int i = 0; i < args.length; i++) {
@@ -35,7 +36,7 @@ public class Request {
         }
     }
 
-    public void run(Request request) {
+    public void run() {
         readData();
         getResult();
         outputResult();
@@ -46,10 +47,10 @@ public class Request {
     }
 
     private void readData() {
-        if ("".equalsIgnoreCase(this.converter.getData())) {
+        if (!pathToFileIn.equals("")) {
             File file = new File(this.getPathToFileIn());
             try (Scanner in = new Scanner(file)) {
-                this.converter.setData(in.nextLine());
+                this.getConverter().setData(in.nextLine());
             } catch (FileNotFoundException e) {
                 System.out.println("Error with input from file.");
             }
@@ -57,19 +58,21 @@ public class Request {
     }
 
     private void outputResult() {
-        File file = new File(this.getPathToFileOut());
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error. Can't create output file.");
+        if (!this.getPathToFileOut().equals("")) {
+            File file = new File(this.getPathToFileOut());
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error. Can't create output file.");
+                }
             }
-        }
-        if (file.exists()) {
-            try (FileWriter writer = new FileWriter(file)) {
-                writer.write(this.converter.getResultData());
-            } catch (IOException e) {
-                System.out.println("Error with file writing.");
+            if (file.exists()) {
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write(this.converter.getResultData());
+                } catch (IOException e) {
+                    System.out.println("Error with file writing.");
+                }
             }
         } else {
             System.out.println(this.converter.getResultData());

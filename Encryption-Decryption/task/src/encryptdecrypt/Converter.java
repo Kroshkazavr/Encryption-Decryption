@@ -3,11 +3,27 @@ package encryptdecrypt;
 class Converter {
 
     private String mode = "enc";
-    private String algorithm;
+    private String algorithm = "shift";
     private int key = 0;
     private String data = "";
     private String resultData = "";
 
+    public void convert() {
+        if (this.mode.equals("enc")) {
+            setResultData(Encryption.transform(this.data, this.algorithm, this.key));
+        }
+        if (this.mode.equals("dec")) {
+            setResultData(Decryption.transform(this.data, this.algorithm, this.key));
+        }
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
     public String getResultData() {
         return resultData;
@@ -25,14 +41,6 @@ class Converter {
         this.mode = mode;
     }
 
-    public String getAlgorithm() {
-        return algorithm;
-    }
-
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
-
     public int getKey() {
         return key;
     }
@@ -47,18 +55,6 @@ class Converter {
 
     public void setData(String data) {
         this.data = data;
-    }
-
-    public void convert() {
-
-        if (this.getMode().equalsIgnoreCase("enc")) {
-            this.setResultData(ConversionMethod.convert(this.getAlgorithm(), this.getData(), this.getKey()));
-        } else if (this.getMode().equalsIgnoreCase("dec")) {
-            this.setResultData(ConversionMethod.convert(this.getAlgorithm(), this.getData(), this.getKey()));
-        } else {
-            System.out.println("Encryption/Decryption uncompleted - WRONG MODE.");
-        }
-
     }
 
 }
